@@ -12,5 +12,5 @@ Nice game written in Assembly code.
 	4. tlink ctb
 	5. ctb.exe
 	
-And Thats it. enjoy.
+   And Thats it. enjoy.
 
