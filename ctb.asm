@@ -78,8 +78,8 @@ mov ds,ax
 mov ah,4ch
 int 21h
 ;----------------------------------------------------------------------------
-;in- continue- äåãòä òì äîñê äàí äîùúîù øåöä îùç÷ ðåñó
-;out- äôåð÷öéä îçæéøä úùåáä ùì îùúîù äàí ìäîùéê àå ìà
+;in- continue- On-screen message whether the user wants another game.
+;out- The function returns a user's answer whether to continue or not.
 IfContinue:	pusha
 			mov bh,0
 			mov dh,1
@@ -168,7 +168,7 @@ DifficultyMenu:	pusha
 				popa
 				ret
 ;----------------------------------------------------------------------------
-;in- msgControls - äåãòä äîöéâä îä äî÷ùéí ùîùç÷éí áäí áîùç÷ 
+;in- msgControls - A message showing what keys are being played in the game. 
 ;out-
 ControlsMenu:	
 			pusha
@@ -184,8 +184,8 @@ ControlsMenu:
 			popa
 			ret
 ;----------------------------------------------------------------------------
-;in- msgPoints- äåãòú äð÷åãåú ùöáø äîùúîù, points- äð÷åãåú ùöáø äîùúîù
-;out- äåãòä òì äîñê ëîä ð÷åãåú öáø äîùúîù
+;in- msgPoints- Message the points accumulated by the user, points- The points earned by the user.
+;out- Message on the screen how many points the user has accumulated
 ShowPoints:	pusha
 			mov bh,0
 			mov dh,0
@@ -210,8 +210,8 @@ ShowPoints:	pusha
 			popa
 			ret
 ;----------------------------------------------------------------------------
-;in- msgTime- äåãòú æîï , timepass- æîï ùðåúø ìîùç÷ , ten- îçì÷ àú äæîï äðåúø ìùðé ñôøåú : òùøåú åàçãåú
-;out- äåãòä òì äîñê ëîä æîï ðùàø ìñéåí äîùç÷
+;in- msgTime- Time message , timepass- Time left for the game , ten- Divides the remaining time into two digits: tens and ones.
+;out- Message on the screen how much time is left until the end of the game.
 ShowTime:	pusha
 			mov bh,0
 			mov dh,0
@@ -281,8 +281,8 @@ HardDiff:	pusha
 			popa
 			ret
 ;----------------------------------------------------------------------------
-;in- xb - îé÷åí äòîåãä , yb - îé÷åí äùåøä
-;out- äôåð÷öéä îöééøú ÷å
+;in- xb - Column index , yb - Row index
+;out- Drawing a line.
 PutpixelLoop:	pusha
 				mov cx,xb
 				mov dx,yb
@@ -296,7 +296,7 @@ PutpixelLoop:	pusha
 				popa
 				ret
 ;----------------------------------------------------------------------------
-;in- difficulty- äåãòä òì äîñê ùì øîåú
+;in- difficulty- levels menu
 ;out-
 DifficultyText:	pusha
 				mov bh,0
@@ -388,7 +388,7 @@ Choose:		pusha
 	theEnd:	popa
 			ret
 ;----------------------------------------------------------------------------
-;in-   x-òîåãú äúîåðä , y-ùåøú äúîåðä
+;in-   x- Column image , y- Row image.
 ;out-  x1=x , y1=y
 Temp:	pusha
 		mov bx,x
@@ -398,8 +398,8 @@ Temp:	pusha
 		popa
 		ret	
 ;----------------------------------------------------------------------------
-;in-  m_shurot-îñôø ùåøåú , m_amudot-îñôø òîåãåú
-;out- àåøê òîåãä , àåøê ùåøä
+;in-  m_shurot- Number of lines , m_amudot- Number of columns.
+;out- row length, column length.
 SizeAmudim:	pusha
 			mov ax,m_shurot
 			mul side
