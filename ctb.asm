@@ -412,8 +412,8 @@ SizeAmudim:	pusha
 			popa
 			ret
 ;----------------------------------------------------------------------------
-;in- m_shurot-îñôø ùåøåú , m_amudot-îñôø òîåãåú , ytop-÷öä ùåøú äèáìä , xtop-÷öä òîåãú äèáìä , tavlacolor-öáò äèáìä,side-îøç÷ áéï ùåøä ìùåøä àå òîåãä ìòîåãä
-;out- èáìä
+;in- m_shurot- number of lines , m_amudot-Number of columns , ytop- The end of the table row , xtop-The end of the table column , tavlacolor- table color, side- distance from row to row or column to column
+;out- table.
 drawTavla:	pusha
 			mov bx,0
 			mov dx,ytop
@@ -438,7 +438,7 @@ drawTavla:	pusha
 			popa
 			ret
 ;----------------------------------------------------------------------------
-;in-  ytop- ÷öä ùåøú äòîåãéí ,xtop- ÷öä òîåãú äòîåãéí
+;in-  ytop- end row ,xtop- end column.
 ;out-
 drawAmudim:	pusha
 			mov dx,ytop
@@ -466,8 +466,8 @@ drawAmudim:	pusha
 			popa
 			ret
 ;-----------------------------------------------------------------------------
-;in-ytop- ÷öä ùåøú äòîåãéí , tavlacolor- öáò äèáìä , orehamud- àåøê äòîåãä , amudimcolor- öáò äòîåãéí , side- îøç÷ áéï òîåã ìòîåã ,yline- äî÷åí äàçøåï ùì òîåãé äùåøåú
-;out-îåç÷ òîåãä
+;in-ytop- end of row column , tavlacolor- table color , orehamud- length of column , amudimcolor- columns color , side- distance between columns ,yline- last index of row columns.
+;out- delete column.
 deleteCol:	pusha
 			mov al,tavlacolor
 			mov dx,orehamud
@@ -485,8 +485,8 @@ deleteCol:	pusha
 			popa
 			ret
 ;-----------------------------------------------------------------------------
-;in- tavlacolor- öáò äèáìä , orehshura- àåøê ùåøä , amudimcolor- öáò äòîåãéí , xtop- ÷öä òîåãú äòîåãéí , xcol- äî÷åí äàçøåï ùì òîåãé äòîåãéí
-;out- îåç÷ ùåøä
+;in- tavlacolor- table color , orehshura- row length , amudimcolor- columns color , xtop- end column , xcol- last index of columns of columns.
+;out- delete row.
 deleteRow:	pusha
 			mov al,tavlacolor
 			mov cx,orehshura
@@ -504,8 +504,8 @@ deleteRow:	pusha
 			popa
 			ret									
 ;-----------------------------------------------------------------------------
-;in- ytop- ÷öä ùåøú äòîåãéí , orehamud- àåøê äòîåãä
-;out- îöééø òîåã 
+;in- ytop- end line of columns , orehamud- column length.
+;out- draw a column.
 drawCol:	mov dx,ytop
 		drawC:
 			call putpixel
@@ -514,7 +514,7 @@ drawCol:	mov dx,ytop
 			jae drawC
 			ret
 ;-----------------------------------------------------------------------------
-;in- xtop- ÷öä òîåãú äòîåãéí , orehshura- àåøê ùåøä
+;in- xtop- end of columns , orehshura- row length.
 ;out- îöééø ùåøä
 drawRow:	mov cx,xtop
 		drawR:
@@ -524,8 +524,8 @@ drawRow:	mov cx,xtop
 			jbe drawR
 			ret
 ;-----------------------------------------------------------------------------
-;in- xcol- äî÷åí äàçøåï ùì òîåãé äòîåãéí , side- îøç÷ áéï òîåã ìòîåã , x- òîåãú äúîåðä , y- ùåøú äúîåðä ,yline- äî÷åí äàçøåï ùì òîåãé äùåøåú , points-ð÷åãåú ùöáø äîùúîù 
-;out- úùåáä äàí ðúôñ äëãåø àå ìà
+;in- xcol- last index of column , side- distance between column to column , x- picture column , y- picture row ,yline- last index of column rows , points- points accumulated by the user.
+;out- return if the ball catched.
 cheakPlace: pusha
 			mov bx,xcol
 			cmp x,bx
@@ -545,8 +545,8 @@ cheakPlace: pusha
 	finishFunc:popa
 			ret
 ;-----------------------------------------------------------------------------
-;in- side- îøç÷ áéï òîåã ìòîåã , orehamud- àåøê äòîåãä , orehshura- àåøê ùåøä , amudimcolor- öáò äòîåãéí
-;out- îåç÷ ùðé äòîåãéí ùáöã ùîàì åîöééø ùðééí çãùéí áúçéìú öã éîéï
+;in- side- distance between column to column , orehamud- column length , orehshura- row length , amudimcolor- color of columns.
+;out- delete the two columns on the left and draw two new ones at the beginning of the right.
 Rightstart:	pusha
 			call deleteCol
 			add cx,side
@@ -564,8 +564,8 @@ Rightstart:	pusha
 			popa
 			ret	
 ;-----------------------------------------------------------------------------
-;in- xcol- äî÷åí äàçøåï ùì òîåãé äòîåãéí , ycol- äî÷åí äàçøåï ùì ùåøú äòîåãéí , side- îøç÷ áéï òîåã ìòîåã , xtop- ÷öä òîåãú äòîåãéí , amudimcolor- öáò äòîåãéí
-;out- îåç÷ òîåãä åîöééø òîåãä çãùä áî÷åí àçø 
+;in- xcol- last index of columns , ycol- last index of row of columns , side- distance between column to column , xtop- ÷öä òîåãú äòîåãéí , amudimcolor- öáò äòîåãéí
+;out- delete column and draw new column elsewhere. 
 Left:	pusha
 		mov cx,xcol
 		mov dx,ycol
@@ -588,8 +588,8 @@ Left:	pusha
 		popa
 		ret
 ;-----------------------------------------------------------------------------
-;in- side- îøç÷ áéï òîåã ìòîåã , orehamud- àåøê äòîåãä , amudimcolor- öáò äòîåãéí , xtop- ÷öä òîåãú äòîåãéí
-;out- îåç÷ ùðé äòîåãéí ùáöã éîéï åîöééø ùðééí çãùéí áúçéìú öã ùîàì
+;in- side- distance between column to column , orehamud- column length , amudimcolor- columns color , xtop- end column of columns.
+;out- delete the two pages on the right side and draws two new ones at the beginning of the left side.
 leftstart:	pusha
 			call deleteCol
 			sub cx,side
