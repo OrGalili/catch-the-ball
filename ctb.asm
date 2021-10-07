@@ -28,7 +28,7 @@ pic1  db 000,000,000,004,004,004,004,004,004,004,000,000,000	;1
       db 000,000,004,004,004,004,004,004,004,004,004,000,000	;13
       db 000,000,000,004,004,004,004,004,004,004,000,000,000	;14
 
-	continue    db 'Wanna play again?(I know where you live)',10,13,'       Y/N$',10,13
+	continue    db 'Wanna play again?',10,13,'       Y/N$',10,13
 	ten      db 10
 	timepass db 0
 	difficulty db 'choose difficulty',10,13,'Easy',10,13,'Normal',10,13,'Hard$',10,13
