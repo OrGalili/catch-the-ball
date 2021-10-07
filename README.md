@@ -1,7 +1,7 @@
 # catch-the-ball
 Nice game written in Assembly code.
 
-#Instructions
+# Instructions
 1. install TASM - extract the TASM folder from TASM.rar .
 2. Put in the TASM folder the ctb.asm file .
 3. Download and install DOSBox (for example DOSBox0.74-win32-installer.exe)
