@@ -129,7 +129,7 @@ PlayTheGame:
 			call movement
 			mov ah,2
 			int 1ah
-			cmp cl,90		;ã÷ä
+			cmp cl,90		;90 seconds
 			mov timepass,dh
 			jae finish
 			cmp ok,1bh		; escape key
