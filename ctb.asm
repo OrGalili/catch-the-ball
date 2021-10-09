@@ -606,8 +606,8 @@ leftstart:	pusha
 			popa	
 			ret
 ;-----------------------------------------------------------------------------
-;in- yline- ð÷åãú äùåøä ùì òîåãé äùåøåú , xline- ð÷åãú äòîåãä ùì òîåãé äùåøåú , orehamud- àåøê òîåã , side- îøç÷ áéï òîåã ìòîåã , amudimcolor- öáò äòîåãéí  
-;out- îåç÷ ùåøä àçú åîöééø ùåøä àçøú áî÷åí àçø
+;in- yline- the row point of the row columns , xline- the column point of the row columns , orehamud- column length , side- distance between column to column , amudimcolor- columns color.  
+;out- delte row and draw a new one elsewhere.
 Down:	pusha
 		mov dx,yline
 		mov cx,xline
@@ -628,8 +628,8 @@ Down:	pusha
 		popa
 		ret
 ;-----------------------------------------------------------------------------
-;in-orehshura- àåøê ùåøä , side-îøç÷ áéï òîåã ìòîåã , amudimcolor- öáò äòîåãéí , ytop-äúçìú ùåøú äòîåãéí 
-;out- îåç÷ ùðé äòîåãéí ùìîèä åîöééø ùðé òîåãéí áäúçìä ùì ìîòìä
+;in-orehshura- row length , side- distance between column to column , amudimcolor- columns color , ytop- start point of columns.
+;out- delete two down top columns and draw up top columns. 
 Upstart:	pusha
 			call deleteRow
 			mov cx,orehshura
@@ -646,8 +646,8 @@ Upstart:	pusha
 			popa
 			ret
 ;-----------------------------------------------------------------------------
-;in-orehshura- àåøê ùåøä , side-îøç÷ áéï òîåã ìòîåã , amudimcolor- öáò äòîåãéí , orehamud- àåøê òîåãä 
-;out- îåç÷ ùðé äòîåãéí ùìîòìä åîöééø ùðé òîåãéí ááúçìä ùì ìîèä
+;in- orehshura- row length , side- distance between column to column , amudimcolor- columns color , orehamud- column length.
+;out- delete up down top columns and draw down top columns. 
 DownStart:	pusha
 			call deleteRow
 			mov cx,orehshura
@@ -665,8 +665,8 @@ DownStart:	pusha
 			popa
 			ret
 ;-----------------------------------------------------------------------------
-;in- yline- ð÷åãú äùåøä ùì òîåãé äùåøåú , xline- ð÷åãú äòîåãä ùì òîåãé äùåøåú , ytop-äúçìú ùåøú äòîåãéí , side- îøç÷ áéï òîåã ìòîåã , amudimcolor- öáò äòîåãéí  
-;out- îåç÷ ùåøä àçú åîöééø ùåøä àçøú áî÷åí àçø
+;in- yline- the row point of the row columns , xline- the column point of the row columns , ytop- start of row columns , side- distance between column to column , amudimcolor- columns color.  
+;out- delete one row and draw another elsewhere.
 Up:	pusha
 	mov dx,yline
 	mov cx,xline
@@ -689,8 +689,8 @@ Up:	pusha
 		popa 
 		ret		
 ;-----------------------------------------------------------------------------
-;in- xcol- äî÷åí äàçøåï ùì òîåãé äòîåãéí , ycol- äî÷åí äàçøåï ùì ùåøú äòîåãéí , side- îøç÷ áéï òîåã ìòîåã , orehshura- àåøê ùåøä , amudimcolor- öáò äòîåãéí
-;out- îåç÷ òîåãä åîöééø òîåãä çãùä áî÷åí àçø 
+;in- xcol- last index of columns , ycol- last y index of columns , side- distance between column to column , orehshura- row length , amudimcolor- columns color.
+;out- delete column and draw new one elsewhere. 
 Right:	pusha
 		mov cx,xcol
 		mov dx,ycol
@@ -711,7 +711,7 @@ Right:	pusha
 		popa
 		ret
 ;-----------------------------------------------------------------------------
-;in al- ëéååï äúæåæä
+;in al- movement direction.
 ;out
 movement:	
 		pusha
@@ -759,8 +759,8 @@ movement:
 		popa
 		ret
 ;-----------------------------------------------------------------------------
-;in- num- îñôø , ax- î÷áì îñôø øðãåîìé
-;out-úùåáä äàí ìäçìéó î÷åí ùì äúîåðä àí ëï îåç÷ àú àú äúîåðä ä÷åãîú åîöééø àú äúîåðä áî÷åí äçãù äøðãåîìé
+;in- num- number , ax- random number.
+;out-check if should rplace the image. if yes then delete the previous image and draw the image in the random new location. else do nothing.
 ifRandPlace:pusha
 			mov dx,0
 			in al,40h
@@ -777,8 +777,8 @@ ifRandPlace:pusha
 			popa
 			ret
 ;-----------------------------------------------------------------------------
-;in- (x1,y1)-äî÷åí ùì äúîåðä ìîìòìä á÷öä äùîàìé ùì äèáìä , m_amudot-îñôø äòîåãåú , m_shurot-îñôø ùåøåú , side-îøç÷ áéï òîåã ìòîåã
-;out-îöééø àú äúîåðä áî÷åí äøðãåîìé
+;in- (x1,y1)- top left coordinate , m_amudot- number of columns , m_shurot-number of rows , side- distance between column to column.
+;out- draw picture in random place.
 RandomPlace:pusha
 			mov bx,x1
 			mov x,bx
