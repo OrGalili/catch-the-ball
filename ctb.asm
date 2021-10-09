@@ -33,7 +33,7 @@ pic1  db 000,000,000,004,004,004,004,004,004,004,000,000,000	;1
 	timepass db 0
 	difficulty db 'choose difficulty',10,13,'Easy',10,13,'Normal',10,13,'Hard$',10,13
 	msgPoints db'Balls catched:$',10,13
-	msgTime   db'Time:   /300000$',10,13
+	msgTime   db'Time:   /90$',10,13
 	msgControls		 db '                               Catch The Ball',10,13,'Controls:',10,13,'         Move Left - Left Corsur',10,13,10,13,'         Move Right - Right Corsur',10,13,10,13,'         Move Down - Down Corsur',10,13,10,13,'         Move Up - Up Corsur',10,13,10,13,'         Catch the ball - Enter/Space button',10,13,10,13,'         Quit - Esc',10,13,10,13,'                    All Rights Reserved To Galili Or (c)',10,13,10,13,'Press any key to continue$'
 	ok       db ?
 	points   dw 0
